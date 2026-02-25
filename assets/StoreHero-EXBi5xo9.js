@@ -1,0 +1,1 @@
+import{r as s,j as r,S as e}from"./index-B0UwScz_.js";const n=s.memo(({user:t,onUnlock:o})=>r.jsx("div",{className:"w-full bg-transparent",children:r.jsx(e,{user:t,onUnlock:o})}));export{n as StoreHero};

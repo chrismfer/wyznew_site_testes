@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Skull Legion | Plataforma Temporariamente Fora do Ar</title>
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="theme-color" content="#06080d">
+    <!-- Anti-cache: impede que o navegador congele na tela offline apos o site voltar -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..800;1,300..800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #06080d;
+            --card-bg: rgba(11, 15, 23, 0.88);
+            --border: rgba(16, 185, 129, 0.22);
+            --border-hover: rgba(16, 185, 129, 0.45);
+            --emerald: #10b981;
+            --emerald-glow: rgba(16, 185, 129, 0.35);
+            --emerald-soft: rgba(16, 185, 129, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 50% 12%, rgba(16, 185, 129, 0.12), transparent 55%),
+                radial-gradient(circle at 85% 85%, rgba(5, 150, 105, 0.05), transparent 45%),
+                radial-gradient(circle at 15% 75%, rgba(16, 185, 129, 0.04), transparent 40%);
+            color: var(--text-primary);
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            padding-top: calc(24px + env(safe-area-inset-top, 0px));
+            padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 520px;
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 44px 32px;
+            text-align: center;
+            box-shadow: 
+                0 25px 60px -15px rgba(0, 0, 0, 0.9),
+                0 0 50px -10px var(--emerald-glow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            animation: cardAppear 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        @keyframes cardAppear {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        /* Estrutura Orbital Concêntrica - Padrão EmptyState */
+        .orbital-wrapper {
+            position: relative;
+            width: 112px;
+            height: 112px;
+            margin: 0 auto 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .orbital-ring-outer {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid rgba(16, 185, 129, 0.25);
+            border-top-color: var(--emerald);
+            animation: orbitalSpin 3.5s linear infinite;
+        }
+        .orbital-ring-inner {
+            position: absolute;
+            inset: 12px;
+            border-radius: 50%;
+            border: 1px dashed rgba(16, 185, 129, 0.45);
+            animation: orbitalSpinRev 5s linear infinite;
+        }
+        .orbital-ring-scale {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 1px solid rgba(16, 185, 129, 0.12);
+            animation: orbitalPulse 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .orbital-center {
+            position: relative;
+            z-index: 10;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #0d121c;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            box-shadow: 0 0 35px var(--emerald-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .orbital-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--emerald);
+            filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.75));
+            animation: iconPulse 2.4s ease-in-out infinite;
+        }
+        
+        @keyframes orbitalSpin {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes orbitalSpinRev {
+            to { transform: rotate(-360deg); }
+        }
+        @keyframes orbitalPulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.96); }
+            50% { opacity: 0.8; transform: scale(1.06); }
+        }
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.85; }
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--emerald);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--emerald);
+            box-shadow: 0 0 8px var(--emerald);
+            animation: blinkDot 1.8s infinite;
+        }
+        @keyframes blinkDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.8); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', -apple-system, sans-serif;
+            font-size: clamp(20px, 5.2vw, 26px);
+            font-weight: 900;
+            letter-spacing: -0.01em;
+            margin-bottom: 12px;
+            color: #ffffff;
+            line-height: 1.25;
+            text-transform: uppercase;
+        }
+        .highlight {
+            color: var(--emerald);
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.45);
+            display: inline-block;
+        }
+
+        .divider {
+            height: 1px;
+            width: 72px;
+            margin: 16px auto 20px;
+            background: linear-gradient(90deg, transparent, var(--emerald), transparent);
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: clamp(13px, 3.4vw, 15px);
+            line-height: 1.65;
+            margin-bottom: 26px;
+            max-width: 440px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .status-box {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background-color: var(--emerald);
+            box-shadow: 0 0 10px var(--emerald);
+            flex-shrink: 0;
+        }
+        .status-text strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .footer {
+            margin-top: 32px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 36px 20px;
+                border-radius: 22px;
+            }
+            .orbital-wrapper {
+                width: 96px;
+                height: 96px;
+                margin-bottom: 22px;
+            }
+            .orbital-center {
+                width: 56px;
+                height: 56px;
+            }
+            .orbital-icon {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="orbital-wrapper">
+            <div class="orbital-ring-outer"></div>
+            <div class="orbital-ring-inner"></div>
+            <div class="orbital-ring-scale"></div>
+            <div class="orbital-center">
+                <svg class="orbital-icon hammer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="badge">
+            <span class="badge-dot"></span>
+            Manutenção Programada
+        </div>
+
+        <h1>Plataforma Temporariamente <br><span class="highlight">Fora do Ar</span></h1>
+        
+        <div class="divider"></div>
+
+        <p>Estamos realizando melhorias estruturais e atualizações técnicas em nossos servidores. O acesso à loja e ao catálogo está temporariamente suspenso para garantir máxima estabilidade e segurança. Voltamos em instantes!</p>
+        
+        <div class="status-box">
+            <span class="status-dot"></span>
+            <span class="status-text">Servidores em Atualização Técnica &bull; <strong>Retorno em Breve</strong></span>
+        </div>
+        
+        <div class="footer">
+            Skull Legion &bull; Alta Performance e Segurança
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var checkInterval = 5000;
+            var isChecking = false;
+
+            function checkStatus() {
+                if (isChecking) return;
+                isChecking = true;
+                
+                fetch('./assets/version.json?_t=' + Date.now(), { cache: 'no-store' })
+                    .then(function(res) {
+                        if (res.ok && res.status === 200) {
+                            return res.json().then(function(data) {
+                                if (data && (data.version || data.revision)) {
+                                    window.location.reload(true);
+                                }
+                            });
+                        }
+                    })
+                    .catch(function() {})
+                    .finally(function() {
+                        isChecking = false;
+                    });
+            }
+
+            setInterval(checkStatus, checkInterval);
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible') {
+                    checkStatus();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

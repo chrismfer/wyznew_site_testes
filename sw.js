@@ -5,7 +5,7 @@ const config = {
   ttls: { productImages: 365 * 24 * 60 * 60 * 1000, staticScript: 7 * 24 * 60 * 60 * 1000, staticStyle: 7 * 24 * 60 * 60 * 1000, staticFont: 7 * 24 * 60 * 60 * 1000, staticImage: 24 * 60 * 60 * 1000 }
 };
 
-const CACHE_NAME = 'skull-legion-1793849509';
+const CACHE_NAME = 'skull-legion-1793850976';
 const CACHE_IMAGES = 'skull-product-images';
 const BACKEND_DOMAINS = config.backendDomains;
 const SW_SCOPE_URL = self.registration?.scope || new URL('./', self.location.href).href;

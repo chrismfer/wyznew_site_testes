@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chrismfer.github.io/wyznew_site_testes/sitemap.xml

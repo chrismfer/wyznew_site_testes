@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Página não encontrada | Skull Legion</title>
+<meta name="robots" content="noindex">
+<script>
+(function () {
+  var BASE_PUBLICADA = "/wyznew_site_testes";
+  var caminho = location.pathname;
+  var ref = null;
+  try { ref = new URLSearchParams(location.search).get('ref'); } catch (e) {}
+
+  function irPara(base, alvo) {
+    // Caminho ABSOLUTO com uma barra só: '//host/...' seria URL protocolo-relativa
+    // (open redirect); '\\' o navegador normaliza para '/'.
+    var destino = '/' + String(base || '').replace(/^[\\/]+/, '') ;
+    if (destino !== '/') destino += '/';
+    var query = '';
+    try {
+      var params = new URLSearchParams();
+      if (alvo) params.set('product', alvo);
+      if (ref) params.set('ref', ref);
+      query = params.toString();
+    } catch (e) {}
+    // O destino é a página em que já estamos? Então este 404 É a raiz do site
+    // (index.html ausente): recarregar seria loop infinito. Fica na mensagem.
+    if (!query && destino === caminho) return;
+    location.replace(query ? destino + '?' + query : destino);
+  }
+
+  function alvoDe(bruto) {
+    try { return decodeURIComponent(bruto); } catch (e) { return null; }
+  }
+
+  // Contrato do Compartilhar (D-47/D-55): /produto/cod/{code}/ e /produto/{slug}/
+  var atual = caminho.match(/^(\/wyznew_site_testes)\/produto\/(cod\/)?([^/]+)\/?$/i);
+  if (atual) {
+    var alvoAtual = alvoDe(atual[2] ? atual[3] : atual[3].replace(/\.html$/i, ''));
+    if (atual[2] && (!/^[\p{L}\p{M}\p{N}._-]+$/u.test(alvoAtual || '') || alvoAtual === '.' || alvoAtual === '..')) alvoAtual = null;
+    if (alvoAtual && (atual[2] || alvoAtual !== 'cod')) { irPara(atual[1], alvoAtual); return; }
+    irPara(BASE_PUBLICADA || atual[1], null); return;
+  }
+
+  // Superfície antiga: /s/{slug}.html e /s/id/{code}.html
+  var antigo = caminho.match(/^(\/wyznew_site_testes)\/s\/(?:id\/)?([^/]+?)(?:\.html)?\/?$/i);
+  if (antigo) {
+    var alvoAntigo = alvoDe(antigo[2]);
+    if (alvoAntigo) { irPara(antigo[1], alvoAntigo); return; }
+  }
+
+  // Qualquer outro endereço: a raiz do SITE (não do domínio), com o cupom.
+  irPara(BASE_PUBLICADA, null);
+})();
+</script>
+<style>
+html,body{margin:0;min-height:100%;background:#050706;color:#e8fff4;font-family:system-ui,Segoe UI,Arial,sans-serif}
+main{max-width:520px;margin:0 auto;padding:64px 20px;text-align:center}
+h1{font-size:1.35rem;margin:0 0 8px}
+p{margin:0 0 16px;opacity:.85;line-height:1.5}
+a{color:#00d084}
+</style>
+</head>
+<body>
+<main>
+<h1>Este endereço mudou</h1>
+<p>Estamos levando você para a loja.</p>
+<p><a href="/wyznew_site_testes/">Ir para a Skull Legion</a></p>
+</main>
+</body>
+</html>
